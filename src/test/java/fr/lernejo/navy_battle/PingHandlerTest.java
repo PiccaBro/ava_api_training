@@ -4,12 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class LocalHttpHandlerTest {
+class PingHandlerTest {
    @Test
     void http_handler_null() throws IOException {
-       LocalHttpHandler handle = new LocalHttpHandler();
+       PingHandler handle = new PingHandler();
        handle.handle(null);
    }
 }

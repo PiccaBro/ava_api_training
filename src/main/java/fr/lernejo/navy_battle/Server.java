@@ -13,7 +13,8 @@ public class Server {
     public Server(int port) throws IOException {
         this.port = port;
         HttpServer server = HttpServer.create(new InetSocketAddress("localhost", this.port), 0);
-        server.createContext("/ping", new LocalHttpHandler());
+        server.createContext("/ping", new PingHandler());
+        server.createContext("/api/game/start", new GameStartHandler());
         server.setExecutor(threadPoolExecutor);
         server.start();
         System.out.println("Server Started at port: " + this.port);

@@ -10,9 +10,13 @@ public class LocalHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String body = "OK";
-        exchange.sendResponseHeaders(200, body.length());
+        if (exchange == null){
+            return;
+        }
         try (OutputStream os = exchange.getResponseBody()) { // (1)
             os.write(body.getBytes());
         }
+        exchange.sendResponseHeaders(200, body.length());
+
     }
 }

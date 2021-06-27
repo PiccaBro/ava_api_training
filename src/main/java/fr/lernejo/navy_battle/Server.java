@@ -11,19 +11,24 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Server {
     private final int port;
     private final Player me;
+    private final RivalMap map;
     private final ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
 
     public Server(int port) throws IOException {
         this.port = port;
         me = new Player(UUID.randomUUID(),"http://localhost:"+ this.port,"I will crush you sucker!");
+        map = new RivalMap();
         HttpServer server = HttpServer.create(new InetSocketAddress("localhost", this.port), 0);
         server.createContext("/ping", new PingHandler());
-        GameStartHandler gameStartHandler = new GameStartHandler(me);
+        GameStartHandler gameStartHandler = new GameStartHandler(me,map);
         server.createContext("/api/game/start", gameStartHandler);
+        FireHandler fireHandler = new FireHandler(me,map);
+        server.createContext("/api/game/fire", fireHandler);
         server.setExecutor(threadPoolExecutor);
         server.start();
         System.out.println("Server Started at port: " + this.port);
     }
-    public void start(){
+    public void set_rival_url(String rival_url){
+        map.setRival_url(rival_url);
     }
 }

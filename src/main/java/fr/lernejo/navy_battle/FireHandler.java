@@ -12,7 +12,7 @@ import java.io.OutputStream;
 public class FireHandler implements HttpHandler {
     private final JSONObject j_me = new JSONObject();
     private final Player me;
-    private RivalMap map;
+    private final RivalMap map;
 
     enum consequence {
         sunk,
